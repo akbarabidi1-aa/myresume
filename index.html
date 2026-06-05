@@ -10,115 +10,191 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
-<div id="loader">
-  <div id="loader-pct">000</div>
-  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+<!-- PARTICLE CANVAS -->
+<canvas id="particle-canvas"></canvas>
+<!-- AURORA SCENE -->
+<div class="scene" role="presentation">
+  <div class="floor"></div>
+  <div class="main-column"></div>
+  <div class="light-stream-container" id="light-stream-container"></div>
 </div>
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">SAA<span>.</span></div>
+    <div id="loader-pct">000</div>
+    <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+    <div class="loader-status">Initializing Portfolio...</div>
+  </div>
+</div>
+<!-- CURSOR -->
 <div id="cur"><div id="cur-dot"></div></div>
 <div id="cur-ring"></div>
-<div id="cur-glow"></div>
+<div id="cur-trail-container"></div>
+<!-- BG GLOWS -->
 <div class="bg-glow-1"></div>
 <div class="bg-glow-2"></div>
 <div class="noise"></div>
-
+<!-- NAV -->
 <nav id="nav">
   <div class="nav-i">
     <a href="#hero" class="nav-logo">My<em>PortFolio.</em></a>
     <div class="nav-links">
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#certifications">Certs</a>
+      <a href="#education" data-text="Education">Education</a>
+      <a href="#skills"    data-text="Skills">Skills</a>
+      <a href="#projects"  data-text="Projects">Projects</a>
+      <a href="#certifications" data-text="Certs">Certs</a>
       <a href="#contact" class="nav-cta">Hire Me</a>
     </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#education" class="mm-link">Education</a>
+  <a href="#skills"    class="mm-link">Skills</a>
+  <a href="#projects"  class="mm-link">Projects</a>
+  <a href="#certifications" class="mm-link">Certs</a>
+  <a href="#contact"   class="mm-link mm-cta">Hire Me</a>
+</div>
+<!-- PROGRESS BAR -->
+<div id="scroll-progress"></div>
 
 <div id="content">
-
-<!-- ═══════════ HERO ═══════════ -->
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
 <section id="hero">
+  <!-- Rotating orbit text (like alimoshen.com rotater) -->
+  <div class="hero-orbit" id="hero-orbit">
+    <svg viewBox="0 0 200 200" class="orbit-svg">
+      <defs>
+        <path id="orbitPath" d="M 100,100 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"/>
+      </defs>
+      <text class="orbit-text">
+        <textPath href="#orbitPath" startOffset="0%">
+          ASP.NET CORE ✦ FULL STACK ✦ AI PIPELINES ✦ CLOUD DEV ✦&nbsp;
+        </textPath>
+      </text>
+    </svg>
+    <div class="orbit-center">
+      <span>SAA</span>
+    </div>
+  </div>
+
   <div class="hero-grid">
-    <div>
+    <div class="hero-left">
       <div class="hero-badge" id="hero-badge" style="opacity:0;">
         <div class="badge-pulse"></div>
         Available for Opportunities
       </div>
+      <!-- Stagger-letter title -->
       <h1 class="hero-title" id="hero-title">
-        Hi, I'm<br>
-        <em>Ali Akbar</em>
+       <br> Hi, I'm<br><em>Ali Akbar</em>
       </h1>
+
       <div class="hero-typing" style="opacity:0;">
         <span id="ttext"></span><span id="tcursor"></span>
       </div>
-      <p class="hero-desc" id="hero-desc" style="opacity:0;">Passionate Computer Science student at SZABIST building scalable web applications and intelligent AI pipelines. I bridge the gap between robust backend architecture and modern machine learning to craft solutions that matter.</p>
+
+      <p class="hero-desc" id="hero-desc" style="opacity:0;">
+        Passionate Computer Science student at SZABIST building scalable web applications and intelligent AI pipelines. I bridge the gap between robust backend architecture and modern machine learning to craft solutions that matter.
+      </p>
+
       <div class="hero-btns" id="hero-btns" style="opacity:0;">
-        <a href="#projects" class="btn-primary">
+        <a href="#projects" class="btn-primary magnetic">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
           Explore Projects
         </a>
-        <a href="Akbar_CV__2_.pdf" download class="btn-ghost">
+        <a href="Akbar_CV__2_.pdf" download class="btn-ghost magnetic">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download CV
         </a>
-        <a href="https://github.com/akbarabidi1-aa" target="_blank" class="btn-ghost">
+        <a href="https://github.com/akbarabidi1-aa" target="_blank" class="btn-ghost magnetic">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 2.683 4.013 2.516.107-.765.413-1.288.751-1.584-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
       </div>
+
+      <!-- Animated counters -->
       <div class="hero-stats" id="hero-stats" style="opacity:0;">
-        <div class="h-stat"><div class="val">+02</div><div class="lbl">Years Exp</div></div>
-        <div class="h-stat"><div class="val">+04</div><div class="lbl">Projects</div></div>
-        <div class="h-stat"><div class="val">02</div><div class="lbl">Internships</div></div>
+        <div class="h-stat">
+          <div class="val" data-count="2">+02</div>
+          <div class="lbl">Years Exp</div>
+        </div>
+        <div class="h-stat">
+          <div class="val" data-count="4">+04</div>
+          <div class="lbl">Projects</div>
+        </div>
+        <div class="h-stat">
+          <div class="val" data-count="2">02</div>
+          <div class="lbl">Internships</div>
+        </div>
       </div>
     </div>
+
+    <!-- 3D tilt cards -->
     <div class="hero-right" id="hero-right">
-      <div class="hero-fc" style="opacity:0;">
+      <div class="hero-fc tilt-card" style="opacity:0;">
+        <div class="tilt-shine"></div>
         <div class="fc-icon">✦</div>
         <h4>Frontend Architecture</h4>
-        <p>Crafting high-fidelity fluid interfaces using ASP.NET MVC, Bootstrap 5, and glassmorphic dark UI design patterns.</p>
+        <p>Crafting high-fidelity interfaces using ASP.NET MVC, Bootstrap 5, and glassmorphic dark UI design patterns.</p>
       </div>
-      <div class="hero-fc" style="opacity:0;">
+      <div class="hero-fc tilt-card" style="opacity:0;">
+        <div class="tilt-shine"></div>
         <div class="fc-icon">⚙️</div>
-        <h4>Backend & AI Pipelines</h4>
+        <h4>Backend &amp; AI Pipelines</h4>
         <p>Robust C# / ASP.NET Core systems integrated with Python NLP engines, ML models, and Azure cloud deployment.</p>
       </div>
     </div>
   </div>
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
 </section>
-
 <div class="divider"></div>
-
-<!-- MARQUEE -->
+<!-- MARQUEE (dual direction) -->
 <div class="marquee-wrap">
-  <div class="marquee-track">
-    <div class="marquee-item"><em>Software Engineer</em><div class="dot"></div></div>
+  <div class="marquee-track marquee-fwd">
+    <div class="marquee-item"><em>ASP.NET Core Developer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Full Stack Engineer</em><div class="dot"></div></div>
     <div class="marquee-item"><em>ASP.NET Core Developer</em><div class="dot"></div></div>
     <div class="marquee-item"><em>AI &amp; ML Enthusiast</em><div class="dot"></div></div>
     <div class="marquee-item"><em>Full Stack Engineer</em><div class="dot"></div></div>
-    <div class="marquee-item"><em>Building Smart Solutions</em><div class="dot"></div></div>
-    <div class="marquee-item"><em>Software Engineer</em><div class="dot"></div></div>
-    <div class="marquee-item"><em>ASP.NET Core Developer</em><div class="dot"></div></div>
-    <div class="marquee-item"><em>AI &amp; ML Enthusiast</em><div class="dot"></div></div>
-    <div class="marquee-item"><em>Full Stack Engineer</em><div class="dot"></div></div>
-    <div class="marquee-item"><em>Building Smart Solutions</em><div class="dot"></div></div>
   </div>
 </div>
-
+<div class="marquee-wrap marquee-rev-wrap">
+  <div class="marquee-track marquee-rev">
+    <div class="marquee-item"><em>C# Developer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Python Engineer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>SQL Server Expert</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>NLP Pipelines</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>C# Developer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Python Engineer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>SQL Server Expert</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>NLP Pipelines</em><div class="dot"></div></div>
+  </div>
+</div>
 <div class="divider"></div>
-
-<!-- ═══════════ EDUCATION ═══════════ -->
+<!-- ══════════════════════════════════════
+     EDUCATION
+══════════════════════════════════════ -->
 <section id="education" class="section">
   <div class="s-inner">
-    <div class="s-eyebrow sr">Background</div>
-    <h2 class="s-title sr">Academic <em>Foundation</em></h2>
-    <p class="s-sub sr" style="margin-bottom:48px;">Structuring analytical thought processes and engineering principles through high-tier technical education.</p>
-    <div class="glass edu-card sr">
+    <div class="s-eyebrow reveal-up">Background</div>
+    <h2 class="s-title reveal-up split-heading">Academic <em>Foundation</em></h2>
+    <p class="s-sub reveal-up" style="margin-bottom:48px;">Structuring analytical thought processes and engineering principles through high-tier technical education.</p>
+
+    <div class="glass edu-card reveal-up tilt-card">
+      <div class="tilt-shine"></div>
       <div class="edu-top">
         <div>
           <div class="edu-meta">Sep 2023 — Present</div>
@@ -126,7 +202,7 @@
           <p class="edu-deg">Bachelor of Science in Computer Science &mdash; Karachi, Pakistan</p>
         </div>
         <div class="gpa-box">
-          <div class="gpa-val">3.25</div>
+          <div class="gpa-val" data-count-float="3.25">3.25</div>
           <div class="gpa-lbl">CGPA / 4.0</div>
         </div>
       </div>
@@ -143,38 +219,46 @@
 
 <div class="divider"></div>
 
-<!-- ═══════════ SKILLS ═══════════ -->
+<!-- ══════════════════════════════════════
+     SKILLS
+══════════════════════════════════════ -->
 <section id="skills" class="section">
   <div class="s-inner">
-    <div class="s-eyebrow sr">Capabilities</div>
-    <h2 class="s-title sr">Technical <em>Arsenal</em></h2>
-    <p class="s-sub sr" style="margin-bottom:48px;">A curated list of technologies I use to build robust production-ready applications with seamless performance.</p>
+    <div class="s-eyebrow reveal-up">Capabilities</div>
+    <h2 class="s-title reveal-up split-heading">Technical <em>Arsenal</em></h2>
+    <p class="s-sub reveal-up" style="margin-bottom:48px;">A curated list of technologies I use to build robust production-ready applications with seamless performance.</p>
     <div class="skills-grid">
-      <div class="glass sk-card sr">
-        <div class="sk-num">01 --&gt;</div>
+
+      <div class="glass sk-card reveal-up tilt-card" style="--d:0s">
+        <div class="tilt-shine"></div>
+        <div class="sk-num">01 --></div>
         <h3 class="sk-cat">Languages</h3>
         <div class="sk-tags">
           <span class="sk-tag">C#</span>
           <span class="sk-tag">Python</span>
           <span class="sk-tag">JavaScript</span>
+          <span class="sk-tag">C</span>
           <span class="sk-tag">Java</span>
           <span class="sk-tag">HTML / CSS</span>
         </div>
       </div>
-      <div class="glass sk-card sr">
-        <div class="sk-num">02 --&gt;</div>
+
+      <div class="glass sk-card reveal-up tilt-card" style="--d:.1s">
+        <div class="tilt-shine"></div>
+        <div class="sk-num">02 --></div>
         <h3 class="sk-cat">Frameworks &amp; Libraries</h3>
         <div class="sk-tags">
           <span class="sk-tag">ASP.NET Core MVC</span>
           <span class="sk-tag">ASP.NET Web Forms</span>
-          <span class="sk-tag">Bootstrap 5</span>
           <span class="sk-tag">Entity Framework Core</span>
           <span class="sk-tag">scikit-learn</span>
           <span class="sk-tag">NLTK</span>
         </div>
       </div>
-      <div class="glass sk-card sr">
-        <div class="sk-num">03 --&gt;</div>
+
+      <div class="glass sk-card reveal-up tilt-card" style="--d:.2s">
+        <div class="tilt-shine"></div>
+        <div class="sk-num">03 --></div>
         <h3 class="sk-cat">Backend / DB</h3>
         <div class="sk-tags">
           <span class="sk-tag">SQL Server</span>
@@ -184,8 +268,10 @@
           <span class="sk-tag">NLP Pipelines</span>
         </div>
       </div>
-      <div class="glass sk-card sr">
-        <div class="sk-num">04 --&gt;</div>
+
+      <div class="glass sk-card reveal-up tilt-card" style="--d:.3s">
+        <div class="tilt-shine"></div>
+        <div class="sk-num">04 --></div>
         <h3 class="sk-cat">DevOps &amp; Tools</h3>
         <div class="sk-tags">
           <span class="sk-tag">Docker</span>
@@ -196,116 +282,90 @@
           <span class="sk-tag">Git / GitHub</span>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ PROJECTS ═══════════ -->
+<!-- ══════════════════════════════════════
+     PROJECTS
+══════════════════════════════════════ -->
 <section id="projects" class="section">
   <div class="s-inner">
-    <div class="s-eyebrow sr">Case Studies</div>
-    <h2 class="s-title sr">Selected <em>Productions</em></h2>
-    <p class="s-sub sr" style="margin-bottom:48px;">Click a case study row below to reveal the interactive full-bento blueprint details panel.</p>
+    <div class="s-eyebrow reveal-up">Case Studies</div>
+    <h2 class="s-title reveal-up split-heading">Selected <em>Productions</em></h2>
+    <p class="s-sub reveal-up" style="margin-bottom:48px;">Click a case study row below to reveal the interactive full-bento blueprint details panel.</p>
     <div class="proj-list">
 
-      <!-- Project 1 -->
-      <div class="proj-row sr" data-id="1">
+      <div class="proj-row reveal-up" data-id="1">
         <div class="proj-num">01.</div>
         <div class="proj-info">
           <h3 class="proj-row-title">AI Research Paper Analyzer</h3>
           <p class="proj-row-desc">An end-to-end NLP pipeline that ingests academic research papers, extracts key insights using TF-IDF vectorization and semantic analysis, and presents results through a clean glassmorphic dashboard.</p>
           <div class="proj-tags">
-            <span class="t">ASP.NET Core MVC</span>
-            <span class="t">C#</span>
-            <span class="t">SQL Server</span>
-            <span class="t">Python</span>
-            <span class="t">NLP</span>
-            <span class="t">Azure</span>
+            <span class="t">ASP.NET Core MVC</span><span class="t">C#</span><span class="t">SQL Server</span><span class="t">Python</span><span class="t">NLP</span><span class="t">Azure</span>
           </div>
         </div>
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links">
-            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
-          </div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa/AIResearchPaperAnalyzer" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
 
-      <!-- Project 2 -->
-      <div class="proj-row sr" data-id="2">
+      <div class="proj-row reveal-up" data-id="2">
         <div class="proj-num">02.</div>
         <div class="proj-info">
           <h3 class="proj-row-title">Doctor-Patient Appointment System</h3>
           <p class="proj-row-desc">A full-featured healthcare scheduling platform with role-based architecture for patients, doctors, and admins. Integrated ML prediction models to estimate consultation durations and reduce no-shows.</p>
           <div class="proj-tags">
-            <span class="t">ASP.NET MVC</span>
-            <span class="t">C#</span>
-            <span class="t">SQL Server</span>
-            <span class="t">Machine Learning</span>
-            <span class="t">Bootstrap 5</span>
+            <span class="t">ASP.NET MVC</span><span class="t">C#</span><span class="t">SQL Server</span><span class="t">Machine Learning</span><span class="t">Bootstrap 5</span>
           </div>
         </div>
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links">
-            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
-          </div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa/AppointmentSchedulingSystem" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
 
-      <!-- Project 3 -->
-      <div class="proj-row sr" data-id="3">
+      <div class="proj-row reveal-up" data-id="3">
         <div class="proj-num">03.</div>
         <div class="proj-info">
           <h3 class="proj-row-title">Stock Price Prediction System</h3>
           <p class="proj-row-desc">Machine learning system trained on Apple and Meta historical data to predict stock price movements. Implements LSTM and Linear Regression models with smart caching and a hybrid AI chat engine.</p>
           <div class="proj-tags">
-            <span class="t">Python</span>
-            <span class="t">Machine Learning</span>
-            <span class="t">LSTM</span>
-            <span class="t">Linear Regression</span>
-            <span class="t">Data Analysis</span>
+            <span class="t">Python</span><span class="t">Machine Learning</span><span class="t">LSTM</span><span class="t">Linear Regression</span><span class="t">Data Analysis</span>
           </div>
         </div>
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links">
-            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
-          </div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
 
-      <!-- Project 4 -->
-      <div class="proj-row sr" data-id="4">
+      <div class="proj-row reveal-up" data-id="4">
         <div class="proj-num">04.</div>
         <div class="proj-info">
           <h3 class="proj-row-title">Student Management System</h3>
           <p class="proj-row-desc">A comprehensive Java OOP application demonstrating core software engineering principles. Features full CRUD operations for student records, grade management, and report generation.</p>
           <div class="proj-tags">
-            <span class="t">Java</span>
-            <span class="t">OOP</span>
-            <span class="t">ArrayList</span>
-            <span class="t">CRUD</span>
+            <span class="t">Java</span><span class="t">OOP</span><span class="t">ArrayList</span><span class="t">CRUD</span>
           </div>
         </div>
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links">
-            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
-          </div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
 
     </div>
   </div>
 </section>
-
 <!-- BENTO PANEL -->
 <div id="bento-panel">
   <div class="bento-hdr">
@@ -339,9 +399,9 @@
   </div>
   <div class="bento-footer">
     <div class="bento-label">Actions Engine Matrix //</div>
-    <div style="display:flex; align-items:center; gap:20px;">
+    <div style="display:flex;align-items:center;gap:20px;">
       <a href="#" id="b-link-live" target="_blank" class="bento-cta"><span>Launch Live App</span></a>
-      <a href="#" id="b-link-git" target="_blank" class="bento-cta-2">Source Code Repository</a>
+      <a href="#" id="b-link-git"  target="_blank" class="bento-cta-2">Source Code Repository</a>
       <button class="bento-close" id="bento-close-btn">Close Matrix</button>
     </div>
   </div>
@@ -349,23 +409,23 @@
 
 <div class="divider"></div>
 
-<!-- ═══════════ CERTIFICATIONS ═══════════ -->
+<!-- ══════════════════════════════════════
+     CERTIFICATIONS
+══════════════════════════════════════ -->
 <section id="certifications" class="section">
   <div class="s-inner">
-    <div class="s-eyebrow sr">Validations</div>
-    <h2 class="s-title sr">Professional <em>Credentials</em></h2>
-    <p class="s-sub sr" style="margin-bottom:48px;">Industry-standard certifications verifying advanced software engineering capabilities.</p>
-    <div style="display:flex; flex-direction:column; gap:24px;">
-
-      <div class="glass cert-card sr">
+    <div class="s-eyebrow reveal-up">Validations</div>
+    <h2 class="s-title reveal-up split-heading">Professional <em>Credentials</em></h2>
+    <p class="s-sub reveal-up" style="margin-bottom:48px;">Industry-standard certifications verifying advanced software engineering capabilities.</p>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <div class="glass cert-card reveal-up tilt-card">
+        <div class="tilt-shine"></div>
         <div class="cert-body">
           <div class="cert-icon">🎖️</div>
           <div>
             <h3 class="cert-title">AI for Everyone</h3>
             <p class="cert-issuer">Issued by Coursera / DeepLearning.AI &mdash; by Andrew Ng</p>
-            <div class="cert-meta">
-              <span class="cert-year">Date: Oct 2025</span>
-            </div>
+            <div class="cert-meta"><span class="cert-year">Date: Oct 2025</span></div>
             <div class="cert-tags">
               <span class="cert-tag">Artificial Intelligence</span>
               <span class="cert-tag">Machine Learning</span>
@@ -375,42 +435,40 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ CONTACT ═══════════ -->
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
 <section id="contact" class="section">
   <div class="s-inner">
-    <div class="s-eyebrow sr">Connection</div>
-    <h2 class="s-title sr">Initiate <em>Contact</em></h2>
-    <p class="s-sub sr" style="margin-bottom:56px;">Let's build something exceptional. Drop a transmission payload via the automated pipeline form below.</p>
+    <div class="s-eyebrow reveal-up">Connection</div>
+    <h2 class="s-title reveal-up split-heading">Initiate <em>Contact</em></h2>
+    <p class="s-sub reveal-up" style="margin-bottom:56px;">Let's build something exceptional. Drop a transmission payload via the automated pipeline form below.</p>
     <div class="contact-grid">
-      <div class="sr">
-        <h3 style="font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:20px; color:#fff;">Direct Channels</h3>
+      <div class="reveal-up">
+        <h3 style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:20px;color:#fff;">Direct Channels</h3>
         <div class="contact-items">
-          <a href="mailto:akbarabidi1@gmail.com" class="c-item">
-            <div class="c-icon">✉️</div>
-            akbarabidi1@gmail.com
+          <a href="mailto:akbarabidi1@gmail.com" class="c-item magnetic">
+            <div class="c-icon">✉️</div>akbarabidi1@gmail.com
           </a>
-          <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank" class="c-item">
-            <div class="c-icon">💼</div>
-            LinkedIn
+          <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank" class="c-item magnetic">
+            <div class="c-icon">💼</div>LinkedIn
           </a>
-          <a href="https://github.com/akbarabidi1-aa" target="_blank" class="c-item">
-            <div class="c-icon">💻</div>
-            GitHub
+          <a href="https://github.com/akbarabidi1-aa" target="_blank" class="c-item magnetic">
+            <div class="c-icon">💻</div>GitHub
           </a>
           <div class="c-item">
-            <div class="c-icon">📍</div>
-            Karachi, Pakistan
+            <div class="c-icon">📍</div>Karachi, Pakistan
           </div>
         </div>
       </div>
-      <div class="glass contact-card sr">
+      <div class="glass contact-card reveal-up tilt-card">
+        <div class="tilt-shine"></div>
         <form id="c-form">
           <div class="f-row">
             <div>
@@ -424,10 +482,10 @@
           </div>
           <div class="f-grp">
             <label class="f-lbl">Message Payload</label>
-            <textarea id="form-msg" required placeholder="Describe your high-end enterprise or creative project brief details..." class="f-ctrl"></textarea>
+            <textarea id="form-msg" required placeholder="Describe your project..." class="f-ctrl"></textarea>
           </div>
           <div id="form-toast" class="f-toast"></div>
-          <button type="submit" id="form-submit" class="btn-send">
+          <button type="submit" id="form-submit" class="btn-send magnetic">
             <span>Send Message</span>
           </button>
         </form>
@@ -436,11 +494,22 @@
   </div>
 </section>
 
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
 <footer class="footer">
-  <p>&copy; 2026 <span>Syed Ali Akbar</span>. Managed Architecture. Crafted beautifully.</p>
+  <div class="footer-inner">
+    <div class="footer-logo">My<em>PortFolio.</em></div>
+    <p>&copy; 2026 <span>Syed Ali Akbar</span>. Crafted with precision.</p>
+    <div class="footer-links">
+      <a href="https://github.com/akbarabidi1-aa" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank">LinkedIn</a>
+      <a href="mailto:akbarabidi1@gmail.com">Email</a>
+    </div>
+  </div>
 </footer>
 
-</div>
+</div><!-- #content -->
 <script src="script.js"></script>
 </body>
 </html>
