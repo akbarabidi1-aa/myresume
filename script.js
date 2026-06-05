@@ -383,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => ripple.remove(), 600);
     });
   });
-
   /* ─────────────────────────────────────────────
      17. PROJECT ROW  hover ink-spread + bento open
   ───────────────────────────────────────────── */
@@ -427,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
         onComplete: () => bentoPanel.style.display = 'none' });
     }
   });
-
   // Bento card spotlight
   document.querySelectorAll('.b-card').forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -436,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.setProperty('--by', (e.clientY - r.top)  + 'px');
     });
   });
-
   /* ─────────────────────────────────────────────
      18. SECTION STAGGER  (each section slides in on enter)
   ───────────────────────────────────────────── */
@@ -447,7 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: { trigger: sec, start: 'top 95%', toggleActions: 'play none none none' } }
     );
   });
-
   /* ─────────────────────────────────────────────
      19. CONTACT FORM
   ───────────────────────────────────────────── */
@@ -468,7 +464,6 @@ document.addEventListener('DOMContentLoaded', () => {
         onComplete: () => { toast.style.display = 'none'; toast.style.opacity = '1'; } }); }, 4000);
     }, 1800);
   });
-
   /* ─────────────────────────────────────────────
      20. MOBILE NAV
   ───────────────────────────────────────────── */
@@ -486,7 +481,6 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileMenu.classList.remove('open');
     hamburger?.classList.remove('active');
   }));
-
   /* ─────────────────────────────────────────────
      21. GLOWING NUMBER HOVER  (education GPA, stats)
   ───────────────────────────────────────────── */
@@ -494,7 +488,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.12, duration: 0.25, ease: 'back.out(2)' }));
     el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1, duration: 0.35, ease: 'elastic.out(1,0.5)' }));
   });
-
   /* ─────────────────────────────────────────────
      22. SMOOTH NAV LINK GLITCH EFFECT
   ───────────────────────────────────────────── */
