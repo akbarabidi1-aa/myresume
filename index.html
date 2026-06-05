@@ -1,144 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ali Akbar | Premium Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syed Ali Akbar | Full Stack Developer</title>
+  <meta name="description" content="Passionate Computer Science student at SZABIST building scalable web applications and intelligent AI pipelines."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.59/build/spline-viewer.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <div class="cursor"></div>
-  <div class="cursor-blur"></div>
+<div id="loader">
+  <div id="loader-pct">000</div>
+  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+</div>
+<div id="cur"><div id="cur-dot"></div></div>
+<div id="cur-ring"></div>
+<div id="cur-glow"></div>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
+<div class="noise"></div>
 
-  <div class="spline-wrapper">
-    <spline-viewer url="https://prod.spline.design/e99af0c4-d829-414b-8323-5be838947477/scene.splinecode"></spline-viewer>
+<nav id="nav">
+  <div class="nav-i">
+    <a href="#hero" class="nav-logo">My<em>PortFolio.</em></a>
+    <div class="nav-links">
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certs</a>
+      <a href="#contact" class="nav-cta">Hire Me</a>
+    </div>
   </div>
+</nav>
 
-  <div class="overlay"></div>
-  <div class="noise"></div>
+<div id="content">
 
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo">My <span>Portfolio.</span></div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge" id="hero-badge" style="opacity:0;">
+        <div class="badge-pulse"></div>
+        Available for Opportunities
+      </div>
+      <h1 class="hero-title" id="hero-title">
+        Hi, I'm<br>
+        <em>Syed Ali Akbar</em>
+      </h1>
+      <div class="hero-typing" style="opacity:0;">
+        <span id="ttext"></span><span id="tcursor"></span>
+      </div>
+      <p class="hero-desc" id="hero-desc" style="opacity:0;">Passionate Computer Science student at SZABIST building scalable web applications and intelligent AI pipelines. I bridge the gap between robust backend architecture and modern machine learning to craft solutions that matter.</p>
+      <div class="hero-btns" id="hero-btns" style="opacity:0;">
+        <a href="#projects" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Explore Projects
+        </a>
+        <a href="Akbar_CV__2_.pdf" download class="btn-ghost">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+        <a href="https://github.com/akbarabidi1-aa" target="_blank" class="btn-ghost">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 2.683 4.013 2.516.107-.765.413-1.288.751-1.584-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="hero-stats" id="hero-stats" style="opacity:0;">
+        <div class="h-stat"><div class="val">+02</div><div class="lbl">Years Exp</div></div>
+        <div class="h-stat"><div class="val">04</div><div class="lbl">Projects</div></div>
+        <div class="h-stat"><div class="val">02</div><div class="lbl">Internships</div></div>
       </div>
     </div>
-  </nav>
+    <div class="hero-right" id="hero-right">
+      <div class="hero-fc" style="opacity:0;">
+        <div class="fc-icon">✦</div>
+        <h4>Frontend Architecture</h4>
+        <p>Crafting high-fidelity fluid interfaces using ASP.NET MVC, Bootstrap 5, and glassmorphic dark UI design patterns.</p>
+      </div>
+      <div class="hero-fc" style="opacity:0;">
+        <div class="fc-icon">⚙️</div>
+        <h4>Backend & AI Pipelines</h4>
+        <p>Robust C# / ASP.NET Core systems integrated with Python NLP engines, ML models, and Azure cloud deployment.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="hero" id="home">
-    <div class="hero-container">
-      <div>
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <span>Full Stack Developer & AI Engineer</span>
+<div class="divider"></div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item"><em>Software Engineer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>ASP.NET Core Developer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>AI &amp; ML Enthusiast</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Full Stack Engineer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Building Smart Solutions</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Software Engineer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>ASP.NET Core Developer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>AI &amp; ML Enthusiast</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Full Stack Engineer</em><div class="dot"></div></div>
+    <div class="marquee-item"><em>Building Smart Solutions</em><div class="dot"></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ EDUCATION ═══════════ -->
+<section id="education" class="section">
+  <div class="s-inner">
+    <div class="s-eyebrow sr">Background</div>
+    <h2 class="s-title sr">Academic <em>Foundation</em></h2>
+    <p class="s-sub sr" style="margin-bottom:48px;">Structuring analytical thought processes and engineering principles through high-tier technical education.</p>
+    <div class="glass edu-card sr">
+      <div class="edu-top">
+        <div>
+          <div class="edu-meta">Sep 2023 — Present</div>
+          <h3 class="edu-name">Shaheed Zulfikar Ali Bhutto Institute of Science and Technology</h3>
+          <p class="edu-deg">Bachelor of Science in Computer Science &mdash; Karachi, Pakistan</p>
         </div>
-        <h1 class="hero-title">
-          Hi,<span class="gradient-text"> I'm</span><br>
-          Syed Ali Akbar
-        </h1>
-        <div class="typing">
-          <span id="typing-text"></span>
-        </div>
-        <p class="description">
-          I design cinematic web experiences, AI-powered applications,
-          and immersive full-stack systems with modern UI/UX.
-        </p>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn-primary">Explore Projects</a>
-          <a href="#contact" class="btn-secondary">Let's Connect</a>
+        <div class="gpa-box">
+          <div class="gpa-val">3.25</div>
+          <div class="gpa-lbl">CGPA / 4.0</div>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="floating-card card-1 glass-card">
-          <h3>Frontend Engineering</h3>
-          <p>React.js, Tailwind CSS, advanced UI animations, cinematic landing pages and premium interactions.</p>
+      <p style="font-size:.92rem; line-height:1.8; color:var(--plat); margin-bottom:20px;">Specialized in OOP, MVC Architecture, Session Management, AI/ML pipelines, and distributed systems. Actively building open-source projects and full-stack web applications with real-world impact.</p>
+      <div class="edu-sep"></div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <span class="edu-pill">Full Stack Developer</span>
+        <span class="edu-pill">AI &amp; ML Practitioner</span>
+        <span class="edu-pill">ASP.NET Core Specialist</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills" class="section">
+  <div class="s-inner">
+    <div class="s-eyebrow sr">Capabilities</div>
+    <h2 class="s-title sr">Technical <em>Arsenal</em></h2>
+    <p class="s-sub sr" style="margin-bottom:48px;">A curated list of technologies I use to build robust production-ready applications with seamless performance.</p>
+    <div class="skills-grid">
+      <div class="glass sk-card sr">
+        <div class="sk-num">01 --&gt;</div>
+        <h3 class="sk-cat">Languages</h3>
+        <div class="sk-tags">
+          <span class="sk-tag">C#</span>
+          <span class="sk-tag">Python</span>
+          <span class="sk-tag">JavaScript</span>
+          <span class="sk-tag">Java</span>
+          <span class="sk-tag">HTML / CSS</span>
         </div>
-        <div class="floating-card card-2 glass-card">
-          <h3>Backend & APIs</h3>
-          <p>ASP.NET Core, REST APIs, SQL Server, authentication systems and scalable architectures.</p>
+      </div>
+      <div class="glass sk-card sr">
+        <div class="sk-num">02 --&gt;</div>
+        <h3 class="sk-cat">Frameworks &amp; Libraries</h3>
+        <div class="sk-tags">
+          <span class="sk-tag">ASP.NET Core MVC</span>
+          <span class="sk-tag">ASP.NET Web Forms</span>
+          <span class="sk-tag">Bootstrap 5</span>
+          <span class="sk-tag">Entity Framework Core</span>
+          <span class="sk-tag">scikit-learn</span>
+          <span class="sk-tag">NLTK</span>
         </div>
-        <div class="floating-card card-3 glass-card">
-          <h3>AI Smart Analyzer</h3>
-          <p>AI-powered research paper analyzer using NLP, Transformers and intelligent PDF extraction.</p>
+      </div>
+      <div class="glass sk-card sr">
+        <div class="sk-num">03 --&gt;</div>
+        <h3 class="sk-cat">Backend / DB</h3>
+        <div class="sk-tags">
+          <span class="sk-tag">SQL Server</span>
+          <span class="sk-tag">Session Management</span>
+          <span class="sk-tag">SHA-256 Auth</span>
+          <span class="sk-tag">Crystal Reports</span>
+          <span class="sk-tag">NLP Pipelines</span>
+        </div>
+      </div>
+      <div class="glass sk-card sr">
+        <div class="sk-num">04 --&gt;</div>
+        <h3 class="sk-cat">DevOps &amp; Tools</h3>
+        <div class="sk-tags">
+          <span class="sk-tag">Docker</span>
+          <span class="sk-tag">Microsoft Azure</span>
+          <span class="sk-tag">IIS Deployment</span>
+          <span class="sk-tag">Jira</span>
+          <span class="sk-tag">Slack</span>
+          <span class="sk-tag">Git / GitHub</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="about" class="reveal">
-    <div class="section-container">
-      <div class="section-heading">
-        <h2>About Me</h2>
-        <p>Passionate Full Stack Developer focused on immersive experiences, scalable architectures and intelligent AI solutions.</p>
-      </div>
-      <div class="about-grid">
-        <div class="about-card glass-card">
-          <h3 class="gradient-text">Frontend</h3>
-          <p>Creating premium interfaces with React.js, Tailwind CSS and cinematic motion design.</p>
-        </div>
-        <div class="about-card glass-card">
-          <h3 class="gradient-text">Backend</h3>
-          <p>Developing scalable APIs and cloud systems using ASP.NET Core and SQL Server.</p>
-        </div>
-        <div class="about-card glass-card">
-          <h3 class="gradient-text">AI / ML</h3>
-          <p>Building intelligent systems using Python, NLP and modern machine learning workflows.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="divider"></div>
 
-  <section id="projects" class="reveal">
-    <div class="section-container">
-      <div class="section-heading">
-        <h2>Featured Projects</h2>
-        <p>Selected projects combining AI engineering, modern immersive interfaces and full-stack architecture.</p>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card glass-card">
-          <h3 class="project-title">🚀 AI Smart Research Analyzer</h3>
-          <p class="project-description">Full-stack AI platform that extracts summaries, workflows and intelligent insights from PDFs.</p>
-          <div class="tech-stack">
-            <span>React</span><span>ASP.NET</span><span>Python</span><span>NLP</span>
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects" class="section">
+  <div class="s-inner">
+    <div class="s-eyebrow sr">Case Studies</div>
+    <h2 class="s-title sr">Selected <em>Productions</em></h2>
+    <p class="s-sub sr" style="margin-bottom:48px;">Click a case study row below to reveal the interactive full-bento blueprint details panel.</p>
+    <div class="proj-list">
+
+      <!-- Project 1 -->
+      <div class="proj-row sr" data-id="1">
+        <div class="proj-num">01.</div>
+        <div class="proj-info">
+          <h3 class="proj-row-title">AI Research Paper Analyzer</h3>
+          <p class="proj-row-desc">An end-to-end NLP pipeline that ingests academic research papers, extracts key insights using TF-IDF vectorization and semantic analysis, and presents results through a clean glassmorphic dashboard.</p>
+          <div class="proj-tags">
+            <span class="t">ASP.NET Core MVC</span>
+            <span class="t">C#</span>
+            <span class="t">SQL Server</span>
+            <span class="t">Python</span>
+            <span class="t">NLP</span>
+            <span class="t">Azure</span>
           </div>
         </div>
-        <div class="project-card glass-card">
-          <h3 class="project-title">🌌 Cinematic Portfolio Experience</h3>
-          <p class="project-description">Advanced immersive portfolio with Spline 3D, GSAP animations and cinematic storytelling UI.</p>
-          <div class="tech-stack">
-            <span>HTML</span><span>GSAP</span><span>Spline</span><span>JavaScript</span>
+        <div class="proj-right">
+          <span class="proj-status s-done">Completed</span>
+          <div class="proj-arrow">&#8594;</div>
+          <div class="proj-links">
+            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section id="contact" class="reveal">
-    <div class="section-container">
-      <div class="contact-card glass-card">
-        <div class="section-heading">
-          <h2>Let's Build Something Amazing</h2>
+      <!-- Project 2 -->
+      <div class="proj-row sr" data-id="2">
+        <div class="proj-num">02.</div>
+        <div class="proj-info">
+          <h3 class="proj-row-title">Doctor-Patient Appointment System</h3>
+          <p class="proj-row-desc">A full-featured healthcare scheduling platform with role-based architecture for patients, doctors, and admins. Integrated ML prediction models to estimate consultation durations and reduce no-shows.</p>
+          <div class="proj-tags">
+            <span class="t">ASP.NET MVC</span>
+            <span class="t">C#</span>
+            <span class="t">SQL Server</span>
+            <span class="t">Machine Learning</span>
+            <span class="t">Bootstrap 5</span>
+          </div>
         </div>
-        <form class="contact-form">
-          <input type="text" placeholder="Your Name">
-          <input type="email" placeholder="Your Email">
-          <textarea rows="6" placeholder="Your Message"></textarea>
-          <button class="btn-primary">Send Message</button>
+        <div class="proj-right">
+          <span class="proj-status s-done">Completed</span>
+          <div class="proj-arrow">&#8594;</div>
+          <div class="proj-links">
+            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="proj-row sr" data-id="3">
+        <div class="proj-num">03.</div>
+        <div class="proj-info">
+          <h3 class="proj-row-title">Stock Price Prediction System</h3>
+          <p class="proj-row-desc">Machine learning system trained on Apple and Meta historical data to predict stock price movements. Implements LSTM and Linear Regression models with smart caching and a hybrid AI chat engine.</p>
+          <div class="proj-tags">
+            <span class="t">Python</span>
+            <span class="t">Machine Learning</span>
+            <span class="t">LSTM</span>
+            <span class="t">Linear Regression</span>
+            <span class="t">Data Analysis</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <span class="proj-status s-done">Completed</span>
+          <div class="proj-arrow">&#8594;</div>
+          <div class="proj-links">
+            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="proj-row sr" data-id="4">
+        <div class="proj-num">04.</div>
+        <div class="proj-info">
+          <h3 class="proj-row-title">Student Management System</h3>
+          <p class="proj-row-desc">A comprehensive Java OOP application demonstrating core software engineering principles. Features full CRUD operations for student records, grade management, and report generation.</p>
+          <div class="proj-tags">
+            <span class="t">Java</span>
+            <span class="t">OOP</span>
+            <span class="t">ArrayList</span>
+            <span class="t">CRUD</span>
+          </div>
+        </div>
+        <div class="proj-right">
+          <span class="proj-status s-done">Completed</span>
+          <div class="proj-arrow">&#8594;</div>
+          <div class="proj-links">
+            <a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BENTO PANEL -->
+<div id="bento-panel">
+  <div class="bento-hdr">
+    <div class="bento-tag"><div class="bento-tag-dot"></div>Interactive Panel Blueprint</div>
+    <h2 class="bento-main-title" id="b-panel-title">Project <em>Blueprint</em></h2>
+    <div class="bento-tech-row" id="b-panel-tech"></div>
+  </div>
+  <div class="bento-grid">
+    <div class="b-card b-large">
+      <div class="b-icon">✦</div>
+      <div class="b-sub">Overview</div>
+      <div class="b-head">Core Architecture &amp; Concept</div>
+      <div class="b-body" id="b-panel-overview">Loading architectural matrix details...</div>
+    </div>
+    <div class="b-card b-wide">
+      <div class="b-icon">⚙️</div>
+      <div class="b-sub">Engineering Challenges</div>
+      <div class="b-head">Performance Optimization Metrics</div>
+      <div class="b-body" id="b-panel-challenge">Resolving high-performance node clustering, rendering lifecycle constraints, layout calculations, and asset payload minimization strategies.</div>
+    </div>
+    <div class="b-card">
+      <div class="b-sub">Database Scale</div>
+      <div class="b-head">Relational Data Structures</div>
+      <div class="b-body" id="b-panel-db">Normalized relational architecture mapping object references with low latency indexes.</div>
+    </div>
+    <div class="b-card">
+      <div class="b-sub">Security Matrix</div>
+      <div class="b-head">Identity Access Layers</div>
+      <div class="b-body" id="b-panel-security">End-to-end payload signing, strict session validation, and ironclad encrypted transactions layers.</div>
+    </div>
+  </div>
+  <div class="bento-footer">
+    <div class="bento-label">Actions Engine Matrix //</div>
+    <div style="display:flex; align-items:center; gap:20px;">
+      <a href="#" id="b-link-live" target="_blank" class="bento-cta"><span>Launch Live App</span></a>
+      <a href="#" id="b-link-git" target="_blank" class="bento-cta-2">Source Code Repository</a>
+      <button class="bento-close" id="bento-close-btn">Close Matrix</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ CERTIFICATIONS ═══════════ -->
+<section id="certifications" class="section">
+  <div class="s-inner">
+    <div class="s-eyebrow sr">Validations</div>
+    <h2 class="s-title sr">Professional <em>Credentials</em></h2>
+    <p class="s-sub sr" style="margin-bottom:48px;">Industry-standard certifications verifying advanced software engineering capabilities.</p>
+    <div style="display:flex; flex-direction:column; gap:24px;">
+
+      <div class="glass cert-card sr">
+        <div class="cert-body">
+          <div class="cert-icon">🎖️</div>
+          <div>
+            <h3 class="cert-title">AI for Everyone</h3>
+            <p class="cert-issuer">Issued by Coursera / DeepLearning.AI &mdash; by Andrew Ng</p>
+            <div class="cert-meta">
+              <span class="cert-year">Date: Oct 2025</span>
+            </div>
+            <div class="cert-tags">
+              <span class="cert-tag">Artificial Intelligence</span>
+              <span class="cert-tag">Machine Learning</span>
+              <span class="cert-tag">AI Strategy</span>
+              <span class="cert-tag">Deep Learning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact" class="section">
+  <div class="s-inner">
+    <div class="s-eyebrow sr">Connection</div>
+    <h2 class="s-title sr">Initiate <em>Contact</em></h2>
+    <p class="s-sub sr" style="margin-bottom:56px;">Let's build something exceptional. Drop a transmission payload via the automated pipeline form below.</p>
+    <div class="contact-grid">
+      <div class="sr">
+        <h3 style="font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:20px; color:#fff;">Direct Channels</h3>
+        <div class="contact-items">
+          <a href="mailto:akbarabidi1@gmail.com" class="c-item">
+            <div class="c-icon">✉️</div>
+            akbarabidi1@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank" class="c-item">
+            <div class="c-icon">💼</div>
+            LinkedIn
+          </a>
+          <a href="https://github.com/akbarabidi1-aa" target="_blank" class="c-item">
+            <div class="c-icon">💻</div>
+            GitHub
+          </a>
+          <div class="c-item">
+            <div class="c-icon">📍</div>
+            Karachi, Pakistan
+          </div>
+        </div>
+      </div>
+      <div class="glass contact-card sr">
+        <form id="c-form">
+          <div class="f-row">
+            <div>
+              <label class="f-lbl">Your Name</label>
+              <input type="text" id="form-name" required placeholder="John Doe" class="f-ctrl"/>
+            </div>
+            <div>
+              <label class="f-lbl">Email Address</label>
+              <input type="email" id="form-email" required placeholder="john@example.com" class="f-ctrl"/>
+            </div>
+          </div>
+          <div class="f-grp">
+            <label class="f-lbl">Message Payload</label>
+            <textarea id="form-msg" required placeholder="Describe your high-end enterprise or creative project brief details..." class="f-ctrl"></textarea>
+          </div>
+          <div id="form-toast" class="f-toast"></div>
+          <button type="submit" id="form-submit" class="btn-send">
+            <span>Send Message</span>
+          </button>
         </form>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<footer class="footer">
+  <p>&copy; 2026 <span>Syed Ali Akbar</span>. Managed Architecture. Crafted beautifully.</p>
+</footer>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
