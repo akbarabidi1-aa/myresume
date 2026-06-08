@@ -4,6 +4,10 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ali Akbar | Full Stack Developer</title>
+    <!-- Resource hints for CDN performance -->
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" as="script"/>
   <meta name="description" content="CS student at SZABIST — ASP.NET Core, Cloud Architecture & AI/ML Engineer."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -16,7 +20,6 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
 <!-- ── GRAIN ───────────────── -->
 <div class="grain"></div>
 <!-- ── AMBIENT ─────────────── -->
@@ -28,22 +31,18 @@
   <div class="main-column"></div>
   <div class="light-stream-container" id="light-stream-container"></div>
 </div>
-
 <!-- ── LOADER ──────────────── -->
 <div id="loader">
-  <div class="loader-logo">SAA<span>.</span></div>
+  <div class="loader-logo">AA<span>.</span></div>
   <div class="loader-bar-wrap"><div id="loader-bar"></div></div>
   <div id="loader-pct">000</div>
 </div>
-
 <!-- ── CURSOR ──────────────── -->
 <div id="cur-dot"></div>
 <div id="cur-circle"></div>
 <div id="cur-label">View</div>
-
 <!-- ── SCROLL PROGRESS ─────── -->
 <div id="scroll-progress"></div>
-
 <!-- ── NAV ─────────────────── -->
 <nav id="nav">
   <div class="nav-i">
@@ -60,7 +59,6 @@
     </button>
   </div>
 </nav>
-
 <!-- ── MOBILE MENU ──────────── -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="#education" class="mm-link">Education</a>
@@ -69,13 +67,10 @@
   <a href="#certifications" class="mm-link">Certs</a>
   <a href="#contact"   class="mm-link mm-cta">Hire Me</a>
 </div>
-
 <div id="content">
-
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
   <div class="hero-grid">
-
     <!-- LEFT -->
     <div class="hero-left">
       <div class="hero-badge" id="hero-badge" style="opacity:0;transform:translateY(20px)">
@@ -90,7 +85,7 @@
         <span id="ttext"></span><span id="tcursor"></span>
       </div>
       <p class="hero-desc" id="hero-desc" style="opacity:0">
-        Computer Science student at SZABIST with expertise in Full-Stack Development, Artificial Intelligence, and Machine Learning. Passionate about building scalable applications, intelligent systems, and innovative digital solutions that solve real-world challenges.
+      Computer Science student at SZABIST with expertise in Full-Stack Development, Artificial Intelligence, and Machine Learning. Passionate about building scalable applications, intelligent systems, and innovative digital solutions that solve real-world challenges.
       </p>
       <div class="hero-btns" id="hero-btns" style="opacity:0">
         <a href="#projects" class="btn-primary">
@@ -112,7 +107,7 @@
           <div class="lbl">Years Exp</div>
         </div>
         <div class="h-stat">
-          <div class="val" data-target="4">+04</div>
+          <div class="val" data-target="4">+05</div>
           <div class="lbl">Projects</div>
         </div>
         <div class="h-stat">
@@ -121,27 +116,22 @@
         </div>
       </div>
     </div>
-
     <!-- RIGHT — Three.js 3D Canvas -->
     <div class="hero-canvas-wrap" id="hero-canvas-wrap" style="opacity:0">
       <div class="canvas-ring"></div>
       <div class="canvas-ring-2"></div>
-      <canvas id="hero-three"></canvas>
+      <canvas id="hero-three" style="display:block"></canvas>
       <div class="orbit-badge">.NET Core</div>
       <div class="orbit-badge">AI / ML</div>
       <div class="orbit-badge">Azure</div>
     </div>
-
   </div>
-
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
 </section>
-
 <div class="divider"></div>
-
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
@@ -248,7 +238,9 @@
     </div>
   </div>
 </section>
+
 <div class="divider"></div>
+
 <!-- ══════════ PROJECTS ══════════ -->
 <section id="projects" class="section">
   <div class="s-inner">
@@ -267,7 +259,7 @@
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa/AIResearchPaperAnalyzer" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
 
@@ -281,7 +273,7 @@
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa/AppointmentSchedulingSystem" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
 
@@ -309,10 +301,9 @@
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa/StudemtManagementSystem" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
