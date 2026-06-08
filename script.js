@@ -1,12 +1,7 @@
-/* ═══════════════════════════════════════════════════════════════
-   ELITE PORTFOLIO SCRIPT
-   Three.js 3D Hero · GSAP ScrollTrigger · Magnetic Cursor ·
-   Typewriter · Counter Animations · Bento Panel · Aurora Beams
-═══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-
+ 
   gsap.registerPlugin(ScrollTrigger);
-
+ 
   /* ── CONSTANTS ──────────────────────────────────────────── */
   const CORAL  = 0xFF8A5B;
   const CREAM  = 0xFFD2A6;
@@ -18,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'Cloud Architect',
     'Backend Systems Expert'
   ];
-
+ 
   /* ═══════════════════════════════════════════════════════════
      1. AURORA BEAMS (background)
   ═══════════════════════════════════════════════════════════ */
@@ -38,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
       streamContainer.appendChild(b);
     }
   }
-
+ 
   /* ═══════════════════════════════════════════════════════════
      2. LOADER
   ═══════════════════════════════════════════════════════════ */
   let pct = 0;
   const loaderBar = document.getElementById('loader-bar');
   const loaderPct = document.getElementById('loader-pct');
-
+ 
   const lInterval = setInterval(() => {
     pct += Math.floor(Math.random() * 8) + 3;
     if (pct >= 100) {
@@ -67,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loaderBar) loaderBar.style.width = pct + '%';
     if (loaderPct) loaderPct.textContent = String(pct).padStart(3,'0');
   }, 40);
-
+ 
   /* ═══════════════════════════════════════════════════════════
      3. CUSTOM CURSOR — magnetic + trail
   ═══════════════════════════════════════════════════════════ */
@@ -75,12 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const curCircle = document.getElementById('cur-circle');
   let mx = window.innerWidth/2, my = window.innerHeight/2;
   let cx = mx, cy = my;
-
+ 
   window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
+ 
   if (curDot) curDot.style.display = 'block';
   if (curCircle) curCircle.style.display = 'block';
-
+ 
   (function tickCursor() {
     if (curDot) {
       curDot.style.left = mx + 'px';
@@ -94,15 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     requestAnimationFrame(tickCursor);
   })();
-
+ 
   document.addEventListener('mousedown', () => curCircle?.classList.add('clicking'));
   document.addEventListener('mouseup',   () => curCircle?.classList.remove('clicking'));
-
+ 
   document.querySelectorAll('a, button, .proj-row, .glass').forEach(el => {
     el.addEventListener('mouseenter', () => curCircle?.classList.add('hovering'));
     el.addEventListener('mouseleave', () => curCircle?.classList.remove('hovering'));
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      4. SCROLL PROGRESS
   ═══════════════════════════════════════════════════════════ */
@@ -113,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progressBar) progressBar.style.width = (scrolled / total * 100) + '%';
     document.getElementById('nav')?.classList.toggle('scrolled', scrolled > 50);
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      5. MOBILE MENU
   ═══════════════════════════════════════════════════════════ */
@@ -129,33 +124,33 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.remove('no-scroll');
     });
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      6. THREE.JS 3D HERO — Cybernetic Matrix Node
   ═══════════════════════════════════════════════════════════ */
   function initThreeHero() {
     const canvas = document.getElementById('hero-three');
     if (!canvas || typeof THREE === 'undefined') return;
-
+ 
     const wrap   = document.getElementById('hero-canvas-wrap');
     const W      = wrap.clientWidth;
     const H      = wrap.clientHeight;
-
+ 
     /* Scene + camera */
     const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 100);
     camera.position.z = 5;
-
+ 
     /* Renderer */
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
-
+ 
     /* ── Group that holds everything ── */
     const group = new THREE.Group();
     scene.add(group);
-
+ 
     /* ── CORE ICOSAHEDRON (wireframe shell) ── */
     const icoGeo  = new THREE.IcosahedronGeometry(1.15, 1);
     const icoMat  = new THREE.MeshBasicMaterial({
@@ -163,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const ico = new THREE.Mesh(icoGeo, icoMat);
     group.add(ico);
-
+ 
     /* ── INNER SOLID SPHERE (glow core) ── */
     const coreGeo = new THREE.SphereGeometry(0.62, 32, 32);
     const coreMat = new THREE.MeshStandardMaterial({
@@ -175,14 +170,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const core = new THREE.Mesh(coreGeo, coreMat);
     group.add(core);
-
+ 
     /* ── RING 1 ── */
     const r1Geo = new THREE.TorusGeometry(1.55, 0.008, 8, 120);
     const r1Mat = new THREE.MeshBasicMaterial({ color: CORAL, transparent: true, opacity: 0.55 });
     const ring1 = new THREE.Mesh(r1Geo, r1Mat);
     ring1.rotation.x = Math.PI * 0.35;
     group.add(ring1);
-
+ 
     /* ── RING 2 ── */
     const r2Geo = new THREE.TorusGeometry(1.85, 0.005, 8, 120);
     const r2Mat = new THREE.MeshBasicMaterial({ color: CREAM, transparent: true, opacity: 0.3 });
@@ -190,14 +185,14 @@ document.addEventListener('DOMContentLoaded', () => {
     ring2.rotation.x = Math.PI * 0.6;
     ring2.rotation.y = Math.PI * 0.2;
     group.add(ring2);
-
+ 
     /* ── RING 3 (outer dashed-style) ── */
     const r3Geo = new THREE.TorusGeometry(2.2, 0.003, 4, 60);
     const r3Mat = new THREE.MeshBasicMaterial({ color: IVORY, transparent: true, opacity: 0.12 });
     const ring3 = new THREE.Mesh(r3Geo, r3Mat);
     ring3.rotation.z = Math.PI * 0.15;
     group.add(ring3);
-
+ 
     /* ── FLOATING NODES (small glowing spheres in orbit) ── */
     const nodeMat = new THREE.MeshBasicMaterial({ color: CORAL });
     const nodePositions = [
@@ -212,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
       group.add(nm);
       return nm;
     });
-
+ 
     /* ── NODE CONNECTORS (lines to core) ── */
     nodes.forEach(n => {
       const pts = [new THREE.Vector3(0,0,0), n.position.clone()];
@@ -222,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       group.add(new THREE.Line(lineGeo, lineMat));
     });
-
+ 
     /* ── PARTICLE FIELD ── */
     const pCount  = 280;
     const pGeo    = new THREE.BufferGeometry();
@@ -236,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pMat  = new THREE.PointsMaterial({ color: CREAM, size: 0.028, transparent: true, opacity: 0.45 });
     const particles = new THREE.Points(pGeo, pMat);
     group.add(particles);
-
+ 
     /* ── LIGHTING ── */
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
     scene.add(ambientLight);
@@ -246,17 +241,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const pLight2 = new THREE.PointLight(CREAM, 1.2, 8);
     pLight2.position.set(-3, -1, 2);
     scene.add(pLight2);
-
+ 
     /* ── MOUSE LERP VARS ── */
     let targetRotX = 0, targetRotY = 0;
     let currentRotX = 0, currentRotY = 0;
     let normMx = 0, normMy = 0;
-
+ 
     window.addEventListener('mousemove', e => {
       normMx = (e.clientX / window.innerWidth  - 0.5) * 2;
       normMy = (e.clientY / window.innerHeight - 0.5) * 2;
     });
-
+ 
     /* ── RESIZE ── */
     window.addEventListener('resize', () => {
       const nW = wrap.clientWidth, nH = wrap.clientHeight;
@@ -264,23 +259,23 @@ document.addEventListener('DOMContentLoaded', () => {
       camera.updateProjectionMatrix();
       renderer.setSize(nW, nH);
     });
-
+ 
     /* ── RENDER LOOP ── */
     let t = 0;
     function animate() {
       requestAnimationFrame(animate);
       t += 0.008;
-
+ 
       /* Smooth mouse tracking — lerp */
       targetRotX = normMy * 0.55;
       targetRotY = normMx * 0.55;
       currentRotX += (targetRotX - currentRotX) * 0.055;
       currentRotY += (targetRotY - currentRotY) * 0.055;
-
+ 
       /* Apply to group */
       group.rotation.x = currentRotX;
       group.rotation.y = currentRotY;
-
+ 
       /* Self-rotate elements */
       ico.rotation.y    += 0.004;
       ico.rotation.z    += 0.002;
@@ -290,27 +285,27 @@ document.addEventListener('DOMContentLoaded', () => {
       ring3.rotation.z  -= 0.002;
       ring3.rotation.x  += 0.003;
       particles.rotation.y += 0.0012;
-
+ 
       /* Nodes pulse (scale bob) */
       nodes.forEach((n, i) => {
         const sc = 1 + Math.sin(t * 1.6 + i * 1.1) * 0.25;
         n.scale.setScalar(sc);
       });
-
+ 
       /* Core emissive breathe */
       coreMat.emissiveIntensity = 0.18 + Math.sin(t * 1.4) * 0.1;
-
+ 
       /* Point light orbit */
       pLight1.position.x = Math.sin(t * 0.7) * 3.5;
       pLight1.position.y = Math.cos(t * 0.5) * 2.5;
       pLight2.position.x = Math.cos(t * 0.6) * 3;
       pLight2.position.z = Math.sin(t * 0.8) * 2;
-
+ 
       renderer.render(scene, camera);
     }
     animate();
   }
-
+ 
   /* ═══════════════════════════════════════════════════════════
      7. TYPEWRITER
   ═══════════════════════════════════════════════════════════ */
@@ -327,16 +322,16 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (deleting && charIdx === 0)          { deleting = false; tIdx = (tIdx+1) % TAGLINES.length; delay = 380; }
     setTimeout(typewriter, delay);
   }
-
+ 
   /* ═══════════════════════════════════════════════════════════
      8. HERO SEQUENCE (fires after loader)
   ═══════════════════════════════════════════════════════════ */
   function initHero() {
     initThreeHero();
     typewriter();
-
+ 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
+ 
     tl.to('#hero-badge',       { opacity: 1, y: 0, duration: 0.7 })
       .to('.line-inner',       { y: '0%', duration: 1.1, stagger: 0.12, ease: 'power4.out' }, '-=0.3')
       .to('#hero-title',       { opacity: 1, duration: 0.01 }, '<')
@@ -345,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .to('#hero-btns',        { opacity: 1, duration: 0.7 }, '-=0.4')
       .to('#hero-stats',       { opacity: 1, duration: 0.7 }, '-=0.3')
       .to('#hero-canvas-wrap', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.8');
-
+ 
     /* Counter animation */
     setTimeout(() => {
       document.querySelectorAll('.val[data-target]').forEach(el => {
@@ -361,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, 1400);
   }
-
+ 
   /* ═══════════════════════════════════════════════════════════
      9. GSAP SCROLL REVEALS
   ═══════════════════════════════════════════════════════════ */
@@ -377,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
-
+ 
   /* Section headings get a special stagger */
   gsap.utils.toArray('.s-eyebrow,.s-title,.s-sub').forEach((el) => {
     gsap.fromTo(el,
@@ -388,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      10. GLASS CARD 3D TILT on mousemove
   ═══════════════════════════════════════════════════════════ */
@@ -406,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.transform = '';
     });
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      11. BENTO PANEL
   ═══════════════════════════════════════════════════════════ */
@@ -416,15 +411,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const bOverview   = document.getElementById('b-panel-overview');
   const bLinkLive   = document.getElementById('b-link-live');
   const bLinkGit    = document.getElementById('b-link-git');
-
+ 
   document.querySelectorAll('.proj-row').forEach(row => {
     row.addEventListener('click', () => {
       const title = row.querySelector('.proj-row-title')?.textContent || 'Blueprint';
       const desc  = row.querySelector('.proj-row-desc')?.textContent  || '';
-
+ 
       if (bTitle)   bTitle.innerHTML   = `${title} <em>Matrix</em>`;
       if (bOverview) bOverview.textContent = desc;
-
+ 
       if (bTech) {
         bTech.innerHTML = '';
         row.querySelectorAll('.proj-tags .t').forEach(t => {
@@ -434,12 +429,12 @@ document.addEventListener('DOMContentLoaded', () => {
           bTech.appendChild(s);
         });
       }
-
+ 
       const rowLive = row.querySelector('.proj-links a[href*="http"]');
       const rowGit  = row.querySelector('.proj-links a');
       if (bLinkLive) { bLinkLive.href = rowLive?.href || '#'; bLinkLive.style.display = rowLive ? 'inline-flex' : 'none'; }
       if (bLinkGit)  { bLinkGit.href  = rowGit?.href  || '#'; bLinkGit.style.display  = rowGit  ? 'inline-flex' : 'none'; }
-
+ 
       if (bentoPanel) {
         bentoPanel.style.display = 'flex';
         gsap.fromTo(bentoPanel,
@@ -450,14 +445,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
+ 
   document.getElementById('bento-close-btn')?.addEventListener('click', () => {
     gsap.to(bentoPanel, {
       opacity: 0, y: 40, duration: 0.4, ease: 'power2.in',
       onComplete: () => { if (bentoPanel) bentoPanel.style.display = 'none'; }
     });
   });
-
+ 
   /* Bento card spotlight */
   document.querySelectorAll('.b-card').forEach(c => {
     c.addEventListener('mousemove', e => {
@@ -466,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
       c.style.setProperty('--by', (e.clientY - r.top)  + 'px');
     });
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      12. CONTACT FORM
   ═══════════════════════════════════════════════════════════ */
@@ -494,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 5000);
     }, 1800);
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      13. PARALLAX on hero badge + orbit ring
   ═══════════════════════════════════════════════════════════ */
@@ -506,7 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.to('.amb-1',         { x: nx * 30, y: ny * 30, duration: 2,   ease:'power1.out' });
     gsap.to('.amb-2',         { x: nx * -20,y: ny *-20, duration: 2.5, ease:'power1.out' });
   });
-
+ 
   /* ═══════════════════════════════════════════════════════════
      14. SECTION PARALLAX on scroll
   ═══════════════════════════════════════════════════════════ */
@@ -520,5 +515,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
-
+ 
 }); /* end DOMContentLoaded */
