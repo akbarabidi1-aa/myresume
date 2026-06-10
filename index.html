@@ -3,47 +3,74 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#0a0a0c"/>
   <title>Ali Akbar | Full Stack Developer</title>
-    <!-- Resource hints for CDN performance -->
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" as="script"/>
   <meta name="description" content="CS student at SZABIST — ASP.NET Core, Cloud Architecture & AI/ML Engineer."/>
+
+  <!-- FIX 01+02+03: Preload critical CSS first, defer all scripts -->
+  <link rel="preload" href="style.css" as="style"/>
+
+  <!-- FIX 04: Non-blocking Google Fonts via media=print swap trick -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- Three.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  </noscript>
+
+  <!-- Critical CSS (inline only above-the-fold styles — everything else in style.css) -->
+  <style>
+    /* Inlined critical path — prevents FOUC before style.css loads */
+    :root{--void:#0a0a0c;--coral:#FF8A5B;--cream:#FFD2A6;--ivory:#FFF3E9;--muted:rgba(255,210,166,.55)}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:auto}
+    body{background:var(--void);color:var(--ivory);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden;cursor:none}
+    #loader{position:fixed;inset:0;z-index:99990;background:var(--void);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:24px}
+    .loader-logo{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+    .loader-logo span{color:var(--coral)}
+    .loader-bar-wrap{width:180px;height:1px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+    #loader-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--coral),var(--cream));transition:width .08s linear}
+    #loader-pct{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.15em;color:var(--muted);position:absolute;bottom:48px}
+    #cur-dot{position:fixed;top:0;left:0;z-index:99999;width:6px;height:6px;border-radius:50%;background:var(--coral);pointer-events:none;will-change:transform}
+    #cur-circle{position:fixed;top:0;left:0;z-index:99998;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,138,91,.45);pointer-events:none;will-change:transform;transition:width .4s,height .4s,border-color .3s,background .3s}
+    #cur-circle.hovering{width:58px;height:58px;border-color:rgba(255,243,233,.8);background:rgba(255,138,91,.07)}
+    #cur-circle.clicking{width:26px;height:26px;background:rgba(255,138,91,.18)}
+    #scroll-progress{position:fixed;top:0;left:0;z-index:9000;height:2px;width:0%;background:linear-gradient(90deg,var(--coral),var(--cream));will-change:width}
+    /* Hide elements that GSAP will animate in — prevents flash */
+    #hero-badge,#hero-title,#hero-role,#hero-desc,#hero-btns,#hero-stats,#hero-canvas-wrap{opacity:0}
+  </style>
+
   <link rel="stylesheet" href="style.css"/>
+
+  <!-- FIX 01+02+03: All scripts deferred — zero render blocking -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- FIX: Three.js loaded LAST and only after DOMContentLoaded fires -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-<!-- ── GRAIN ───────────────── -->
+
+<!-- FIX 06: Aurora scene disabled on mobile via JS (saves ~30 DOM nodes + 16 animations) -->
 <div class="grain"></div>
-<!-- ── AMBIENT ─────────────── -->
 <div class="amb-1"></div>
 <div class="amb-2"></div>
-<!-- ── AURORA ──────────────── -->
-<div class="scene">
+<div class="scene" id="aurora-scene">
   <div class="floor"></div>
   <div class="main-column"></div>
   <div class="light-stream-container" id="light-stream-container"></div>
 </div>
-<!-- ── LOADER ──────────────── -->
+
 <div id="loader">
-  <div class="loader-logo">AA<span>.</span></div>
+  <div class="loader-logo">SAA<span>.</span></div>
   <div class="loader-bar-wrap"><div id="loader-bar"></div></div>
   <div id="loader-pct">000</div>
 </div>
-<!-- ── CURSOR ──────────────── -->
+
 <div id="cur-dot"></div>
 <div id="cur-circle"></div>
-<div id="cur-label">View</div>
-<!-- ── SCROLL PROGRESS ─────── -->
 <div id="scroll-progress"></div>
-<!-- ── NAV ─────────────────── -->
+
 <nav id="nav">
   <div class="nav-i">
     <a href="#hero" class="nav-logo">My<em>PortFolio.</em></a>
@@ -59,7 +86,7 @@
     </button>
   </div>
 </nav>
-<!-- ── MOBILE MENU ──────────── -->
+
 <div class="mobile-menu" id="mobile-menu">
   <a href="#education" class="mm-link">Education</a>
   <a href="#skills"    class="mm-link">Skills</a>
@@ -67,43 +94,45 @@
   <a href="#certifications" class="mm-link">Certs</a>
   <a href="#contact"   class="mm-link mm-cta">Hire Me</a>
 </div>
+
 <div id="content">
-<!-- ══════════ HERO ══════════ -->
+
 <section id="hero">
   <div class="hero-grid">
-    <!-- LEFT -->
     <div class="hero-left">
-      <div class="hero-badge" id="hero-badge" style="opacity:0;transform:translateY(20px)">
-        <div class="badge-dot"></div>
-        Available for Opportunities
+      <div class="hero-badge" id="hero-badge">
+        <div class="badge-dot"></div>Available for Opportunities
       </div>
-      <h1 class="hero-title" id="hero-title" style="opacity:0">
+      <h1 class="hero-title" id="hero-title">
         <span class="line"><span class="line-inner">Hi, I'm</span></span>
-        <span class="line"><span class="line-inner"><em>Ali Akbar</em></span></span>
+        <span class="line"><span class="line-inner"><em>Ali</em></span></span>
+        <span class="line"><span class="line-inner"><em>Akbar.</em></span></span>
       </h1>
-      <div class="hero-role" id="hero-role" style="opacity:0">
+      <div class="hero-role" id="hero-role">
         <span id="ttext"></span><span id="tcursor"></span>
       </div>
-      <p class="hero-desc" id="hero-desc" style="opacity:0">
-      Computer Science student at SZABIST with expertise in Full-Stack Development, Artificial Intelligence, and Machine Learning. Passionate about building scalable applications, intelligent systems, and innovative digital solutions that solve real-world challenges.
+      <p class="hero-desc" id="hero-desc">
+        Passionate CS student at SZABIST — building scalable ASP.NET Core systems,
+        intelligent AI/ML pipelines, and cloud-native architectures that bridge
+        cutting-edge research with real-world impact.
       </p>
-      <div class="hero-btns" id="hero-btns" style="opacity:0">
+      <div class="hero-btns" id="hero-btns">
         <a href="#projects" class="btn-primary">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
           Explore Projects
         </a>
         <a href="Akbar_CV__2_.pdf" download class="btn-ghost">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download CV
         </a>
-        <a href="https://github.com/akbarabidi1-aa" target="_blank" class="btn-ghost">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 2.683 4.013 2.516.107-.765.413-1.288.751-1.584-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener" class="btn-ghost">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 2.683 4.013 2.516.107-.765.413-1.288.751-1.584-2.665-.303-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           GitHub
         </a>
       </div>
-      <div class="hero-stats" id="hero-stats" style="opacity:0">
+      <div class="hero-stats" id="hero-stats">
         <div class="h-stat">
-          <div class="val" data-target="2"><span class="val-prefix">+</span>02</div>
+          <div class="val" data-target="2"><span class="val-prefix">+</span>+02</div>
           <div class="lbl">Years Exp</div>
         </div>
         <div class="h-stat">
@@ -116,8 +145,8 @@
         </div>
       </div>
     </div>
-    <!-- RIGHT — Three.js 3D Canvas -->
-    <div class="hero-canvas-wrap" id="hero-canvas-wrap" style="opacity:0">
+
+    <div class="hero-canvas-wrap" id="hero-canvas-wrap">
       <div class="canvas-ring"></div>
       <div class="canvas-ring-2"></div>
       <canvas id="hero-three" style="display:block"></canvas>
@@ -126,13 +155,15 @@
       <div class="orbit-badge">Azure</div>
     </div>
   </div>
+
   <div class="scroll-indicator">
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
 </section>
+
 <div class="divider"></div>
-<!-- MARQUEE -->
+
 <div class="marquee-wrap">
   <div class="marquee-track">
     <div class="marquee-item"><em>Software Engineer</em><div class="dot"></div></div>
@@ -161,8 +192,9 @@
     <div class="marquee-item"><em>NLP Pipelines</em><div class="dot"></div></div>
   </div>
 </div>
+
 <div class="divider"></div>
-<!-- ══════════ EDUCATION ══════════ -->
+
 <section id="education" class="section">
   <div class="s-inner">
     <div class="s-eyebrow reveal-up">Background</div>
@@ -190,65 +222,31 @@
     </div>
   </div>
 </section>
+
 <div class="divider"></div>
-<!-- ══════════ SKILLS ══════════ -->
+
 <section id="skills" class="section">
   <div class="s-inner">
     <div class="s-eyebrow reveal-up">Capabilities</div>
     <h2 class="s-title reveal-up">Technical <em>Arsenal</em></h2>
     <p class="s-sub reveal-up" style="margin-bottom:48px">Technologies I use to ship robust, production-ready applications at scale.</p>
     <div class="skills-grid">
-      <div class="glass sk-card reveal-up">
-        <div class="sk-num">01 --></div>
-        <h3 class="sk-cat">Languages</h3>
-        <div class="sk-tags">
-          <span class="sk-tag">C</span>
-          <span class="sk-tag">C#</span><span class="sk-tag">Python</span>
-          <span class="sk-tag">JavaScript</span><span class="sk-tag">Java</span>
-          <span class="sk-tag">HTML / CSS</span>
-        </div>
-      </div>
-      <div class="glass sk-card reveal-up">
-        <div class="sk-num">02 --></div>
-        <h3 class="sk-cat">Frameworks &amp; Libraries</h3>
-        <div class="sk-tags">
-          <span class="sk-tag">ASP.NET Core MVC</span><span class="sk-tag">Web Forms</span>
-          <span class="sk-tag">Bootstrap 5</span><span class="sk-tag">EF Core</span>
-          <span class="sk-tag">scikit-learn</span><span class="sk-tag">NLTK</span>
-        </div>
-      </div>
-      <div class="glass sk-card reveal-up">
-        <div class="sk-num">03 --></div>
-        <h3 class="sk-cat">Backend / DB</h3>
-        <div class="sk-tags">
-          <span class="sk-tag">SQL Server</span><span class="sk-tag">Session Auth</span>
-          <span class="sk-tag">SHA-256</span><span class="sk-tag">Crystal Reports</span>
-          <span class="sk-tag">NLP Pipelines</span>
-        </div>
-      </div>
-      <div class="glass sk-card reveal-up">
-        <div class="sk-num">04 --></div>
-        <h3 class="sk-cat">DevOps &amp; Cloud</h3>
-        <div class="sk-tags">
-          <span class="sk-tag">Docker</span><span class="sk-tag">Azure</span>
-          <span class="sk-tag">IIS</span><span class="sk-tag">Jira</span>
-          <span class="sk-tag">Git / GitHub</span>
-        </div>
-      </div>
+      <div class="glass sk-card reveal-up"><div class="sk-num">01 --></div><h3 class="sk-cat">Languages</h3><div class="sk-tags"><span class="sk-tag">C#</span><span class="sk-tag">Python</span><span class="sk-tag">JavaScript</span><span class="sk-tag">Java</span><span class="sk-tag">HTML / CSS</span></div></div>
+      <div class="glass sk-card reveal-up"><div class="sk-num">02 --></div><h3 class="sk-cat">Frameworks &amp; Libraries</h3><div class="sk-tags"><span class="sk-tag">ASP.NET Core MVC</span><span class="sk-tag">Web Forms</span><span class="sk-tag">Bootstrap 5</span><span class="sk-tag">EF Core</span><span class="sk-tag">scikit-learn</span><span class="sk-tag">NLTK</span></div></div>
+      <div class="glass sk-card reveal-up"><div class="sk-num">03 --></div><h3 class="sk-cat">Backend / DB</h3><div class="sk-tags"><span class="sk-tag">SQL Server</span><span class="sk-tag">Session Auth</span><span class="sk-tag">SHA-256</span><span class="sk-tag">Crystal Reports</span><span class="sk-tag">NLP Pipelines</span></div></div>
+      <div class="glass sk-card reveal-up"><div class="sk-num">04 --></div><h3 class="sk-cat">DevOps &amp; Cloud</h3><div class="sk-tags"><span class="sk-tag">Docker</span><span class="sk-tag">Azure</span><span class="sk-tag">IIS</span><span class="sk-tag">Jira</span><span class="sk-tag">Git / GitHub</span></div></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ══════════ PROJECTS ══════════ -->
 <section id="projects" class="section">
   <div class="s-inner">
     <div class="s-eyebrow reveal-up">Case Studies</div>
     <h2 class="s-title reveal-up">Selected <em>Productions</em></h2>
     <p class="s-sub reveal-up" style="margin-bottom:48px">Click any row to expand the interactive blueprint panel.</p>
     <div class="proj-list">
-
       <div class="proj-row reveal-up" data-id="1">
         <div class="proj-num">01.</div>
         <div class="proj-info">
@@ -259,10 +257,9 @@
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener" class="proj-link">Code</a></div>
         </div>
       </div>
-
       <div class="proj-row reveal-up" data-id="2">
         <div class="proj-num">02.</div>
         <div class="proj-info">
@@ -273,24 +270,22 @@
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener" class="proj-link">Code</a></div>
         </div>
       </div>
-
       <div class="proj-row reveal-up" data-id="3">
         <div class="proj-num">03.</div>
         <div class="proj-info">
           <h3 class="proj-row-title">Stock Price Prediction System</h3>
-          <p class="proj-row-desc">ML system trained on Apple & Meta historical data using LSTM and Linear Regression. Features smart caching, hybrid AI chat engine, and real-time trend forecasting.</p>
+          <p class="proj-row-desc">ML system trained on Apple &amp; Meta historical data using LSTM and Linear Regression. Features smart caching, hybrid AI chat engine, and real-time trend forecasting.</p>
           <div class="proj-tags"><span class="t">Python</span><span class="t">LSTM</span><span class="t">Linear Regression</span><span class="t">Data Analysis</span></div>
         </div>
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener" class="proj-link">Code</a></div>
         </div>
       </div>
-
       <div class="proj-row reveal-up" data-id="4">
         <div class="proj-num">04.</div>
         <div class="proj-info">
@@ -301,13 +296,13 @@
         <div class="proj-right">
           <span class="proj-status s-done">Completed</span>
           <div class="proj-arrow">&#8594;</div>
-          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" class="proj-link">Code</a></div>
+          <div class="proj-links"><a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener" class="proj-link">Code</a></div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- BENTO PANEL -->
+
 <div id="bento-panel">
   <div class="bento-hdr">
     <div class="bento-tag"><div class="bento-tag-dot"></div>Interactive Blueprint</div>
@@ -315,28 +310,10 @@
     <div class="bento-tech-row" id="b-panel-tech"></div>
   </div>
   <div class="bento-grid">
-    <div class="b-card b-large">
-      <div class="b-icon">✦</div>
-      <div class="b-sub">Overview</div>
-      <div class="b-head">Core Architecture &amp; Concept</div>
-      <div class="b-body" id="b-panel-overview">Loading details...</div>
-    </div>
-    <div class="b-card b-wide">
-      <div class="b-icon">⚙️</div>
-      <div class="b-sub">Engineering</div>
-      <div class="b-head">Performance Optimization</div>
-      <div class="b-body" id="b-panel-challenge">Resolving high-performance clustering, rendering lifecycle constraints, layout calculations, and asset minimization strategies.</div>
-    </div>
-    <div class="b-card">
-      <div class="b-sub">Database</div>
-      <div class="b-head">Data Architecture</div>
-      <div class="b-body" id="b-panel-db">Normalized relational schema with optimized indexes and low-latency queries.</div>
-    </div>
-    <div class="b-card">
-      <div class="b-sub">Security</div>
-      <div class="b-head">Identity &amp; Access</div>
-      <div class="b-body" id="b-panel-security">SHA-256 hashing, session-based auth, and encrypted transaction layers.</div>
-    </div>
+    <div class="b-card b-large"><div class="b-icon">✦</div><div class="b-sub">Overview</div><div class="b-head">Core Architecture &amp; Concept</div><div class="b-body" id="b-panel-overview">Loading details...</div></div>
+    <div class="b-card b-wide"><div class="b-icon">⚙️</div><div class="b-sub">Engineering</div><div class="b-head">Performance Optimization</div><div class="b-body" id="b-panel-challenge">Resolving high-performance clustering, rendering lifecycle constraints, layout calculations, and asset minimization strategies.</div></div>
+    <div class="b-card"><div class="b-sub">Database</div><div class="b-head">Data Architecture</div><div class="b-body" id="b-panel-db">Normalized relational schema with optimized indexes and low-latency queries.</div></div>
+    <div class="b-card"><div class="b-sub">Security</div><div class="b-head">Identity &amp; Access</div><div class="b-body" id="b-panel-security">SHA-256 hashing, session-based auth, and encrypted transaction layers.</div></div>
   </div>
   <div class="bento-footer">
     <div class="bento-label">Actions //</div>
@@ -347,8 +324,9 @@
     </div>
   </div>
 </div>
+
 <div class="divider"></div>
-<!-- ══════════ CERTIFICATIONS ══════════ -->
+
 <section id="certifications" class="section">
   <div class="s-inner">
     <div class="s-eyebrow reveal-up">Validations</div>
@@ -362,20 +340,16 @@
             <h3 class="cert-title">AI for Everyone</h3>
             <p class="cert-issuer">Issued by Coursera / DeepLearning.AI &mdash; by Andrew Ng</p>
             <div class="cert-meta"><span class="cert-year">Oct 2025</span></div>
-            <div class="cert-tags">
-              <span class="cert-tag">Artificial Intelligence</span>
-              <span class="cert-tag">Machine Learning</span>
-              <span class="cert-tag">AI Strategy</span>
-              <span class="cert-tag">Deep Learning</span>
-            </div>
+            <div class="cert-tags"><span class="cert-tag">Artificial Intelligence</span><span class="cert-tag">Machine Learning</span><span class="cert-tag">AI Strategy</span><span class="cert-tag">Deep Learning</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <div class="divider"></div>
-<!-- ══════════ CONTACT ══════════ -->
+
 <section id="contact" class="section">
   <div class="s-inner">
     <div class="s-eyebrow reveal-up">Connection</div>
@@ -385,58 +359,40 @@
       <div class="reveal-up">
         <h3 style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;margin-bottom:22px;color:#fff">Direct Channels</h3>
         <div class="contact-items">
-          <a href="mailto:akbarabidi1@gmail.com" class="c-item">
-            <div class="c-icon">✉️</div>akbarabidi1@gmail.com
-          </a>
-          <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank" class="c-item">
-            <div class="c-icon">💼</div>LinkedIn Profile
-          </a>
-          <a href="https://github.com/akbarabidi1-aa" target="_blank" class="c-item">
-            <div class="c-icon">💻</div>GitHub Repositories
-          </a>
-          <div class="c-item">
-            <div class="c-icon">📍</div>Karachi, Pakistan
-          </div>
+          <a href="mailto:akbarabidi1@gmail.com" class="c-item"><div class="c-icon">✉️</div>akbarabidi1@gmail.com</a>
+          <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank" rel="noopener" class="c-item"><div class="c-icon">💼</div>LinkedIn Profile</a>
+          <a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener" class="c-item"><div class="c-icon">💻</div>GitHub Repositories</a>
+          <div class="c-item"><div class="c-icon">📍</div>Karachi, Pakistan</div>
         </div>
       </div>
       <div class="glass contact-card reveal-up">
         <form id="c-form">
           <div class="f-row">
-            <div>
-              <label class="f-lbl">Your Name</label>
-              <input type="text" id="form-name" required placeholder="John Doe" class="f-ctrl"/>
-            </div>
-            <div>
-              <label class="f-lbl">Email Address</label>
-              <input type="email" id="form-email" required placeholder="john@example.com" class="f-ctrl"/>
-            </div>
+            <div><label class="f-lbl">Your Name</label><input type="text" id="form-name" required placeholder="John Doe" class="f-ctrl"/></div>
+            <div><label class="f-lbl">Email Address</label><input type="email" id="form-email" required placeholder="john@example.com" class="f-ctrl"/></div>
           </div>
-          <div class="f-grp">
-            <label class="f-lbl">Message</label>
-            <textarea id="form-msg" required placeholder="Tell me about your project..." class="f-ctrl"></textarea>
-          </div>
+          <div class="f-grp"><label class="f-lbl">Message</label><textarea id="form-msg" required placeholder="Tell me about your project..." class="f-ctrl"></textarea></div>
           <div id="form-toast" class="f-toast"></div>
-          <button type="submit" id="form-submit" class="btn-send">
-            <span>Send Message</span>
-          </button>
+          <button type="submit" id="form-submit" class="btn-send"><span>Send Message</span></button>
         </form>
       </div>
     </div>
   </div>
 </section>
-<!-- ══════════ FOOTER ══════════ -->
+
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-logo">My<em>PortFolio.</em></div>
     <p>&copy; 2026 <span>Ali Akbar</span>. Crafted with precision.</p>
     <div class="footer-links">
-      <a href="https://github.com/akbarabidi1-aa" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/akbarabidi1-aa" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/aliakbar22/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:akbarabidi1@gmail.com">Email</a>
     </div>
   </div>
 </footer>
-</div><!-- #content -->
-<script src="script.js"></script>
+
+</div>
+<script src="script.js" defer></script>
 </body>
 </html>
